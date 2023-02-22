@@ -1,7 +1,7 @@
 
 ## CS321 - Software Engineering
 ### Isabella Feng
-**Project 2:  Python2Vec**
+**Project 2:  Python2Vec**<br>
 *GitHub Repository: https://github.com/isabella-feng/CS421-project2*
 
 ### Abstract
