@@ -18,36 +18,32 @@ It can also find the words that doesn't match in a group of words. For example, 
 
 In analysis of the similarity between identifiers, we're able to have interesting discoveries. For one, the pair with highest similarity is 'ValueError' and 'TypeError', as both of them are errors and usually appear in similar settings. For another, common variable names, such as 'x' and 'y', also have high similarities, as they're usually just names and can be interchangeable. 
 
-On the other hand, it seems like random variable names that have unrelated meanings, such as 'plt' & 'obj', 'res' & 'fig', have very low similarity with negative values.
+On the other hand, it seems like variable names that carry certain meanings are unlikely to have similarity as others, such as 'plt' & 'obj', 'res' & 'fig' have very low similarity with negative values.
 
 Here below is the Heatmap showing the similarity between each pair of words. The yellower the color, the higher the similarity. 
 ![Fig 1. Similarity of pairs of identifiers](https://github.com/isabella-feng/CS421-project2/blob/main/Similarity_of_pairs_of_identifiers.png?raw=true "Fig 1. Similarity of pairs of identifiers")
 <p style="text-align: center;">*Fig 1. Similarity of pairs of identifiers*</p>
 
-Furthermore, I enhanced the way to flag identifiers as similar/dissimilar. I categorize the similarities into 3 categories: Similar pairs are the ones with similarity > 0.5; Not-so-similar pairs are the ones with 0 < similarity < 0.5; and Dissimilar pairs are the ones with similarity < 0. In this grayscale Heatmap below, Similar pairs are white, Dissimilar pairs are black, and Not-so-similar pairs are gray.
+Furthermore, I enhanced the way to flag identifiers as similar/dissimilar. I categorize the similarities into 3 categories: Similar pairs are the ones with similarity > 0.5; Not-so-similar pairs are the ones with 0 < similarity < 0.5; and Dissimilar pairs are the ones with similarity < 0. In this grayscale Heatmap below, Similar pairs are white, Dissimilar pairs are black, and Not-so-similar pairs are gray. As we can see from the graph, the identifiers that have lots of whites are the variable and function names that carry certain meanings, such as "fig", "assert_equal", and "plt".
 ![Fig 2. Similarity Categorization](https://github.com/isabella-feng/CS421-project2/blob/main/Similarity_Categorization.png?raw=true "Fig 2. Similarity Categorization")
 <p style="text-align: center;">*Fig 2. Similarity Categorization*</p>
 
 
 ### Discussions
-
-Generally, my results are essentially similar to the ones presented in the original paper. Note that the *regress*' performance dip in slope error, which was brought to attention in the paper, is seen in my results. 
-
-It is worth noting that the performance of *compare* is fair and is certainly not as bad as it was described in the paper. I deem that it is because we are using the simulated data instead of a real data, especially data from children. Therefore, since *compare* is bad with behaviors such as regression, it doesn't perform quite bad on simulated data with controlled variables. 
-
-For two regression errors, the accuracy of all algorithms declines as opposed to some algorithms being invariant as shown in the paper. I suppose it may be due to the extent of regression error created, or the way that accuracy was calculated. 
+The analysis of similarity of the identifiers could provide us with some insights on how codes are made. For example, homogeneous variable names that don't carry certain meanings could be quite similar, which might decrease the readability of the codes, and may create confusion and increase the possibility of having bugs. In the opposite, variable names that carry certain meanings are unlikely to have similarity with others. This reminds us that when we name our functions and variables, it is the best to use less homogeneous names (such as 'x' or 'y'), and embed the meaning/intensino in the name instead. 
 
 ### Extensions
-- Create a version of the Warp algorithm that detects regressions and adapts to them.
-Since my results for between-line regression errors do not show much variance among algorithms, I am creating this adapted version of Warp towards within-line regression. 
-I use an algorithm to detect whether the collection of fixations has significant amount of within-line regression errors. If it has, *attach* is used instead of *warp*. 
-The algorithm goes like this: 1) randomly select a fixation 2) check its next 10 fixations, and check whether there are more than 2 backward in x value, which means that there are regressions instead of return sweeps. Lastly, repeat these two steps for 10 times, and if 3 or more of them exhibit such regression behavior, use *attach*. Else use *warp*.
-The result of *adapted_warp*, comparing to other algorithms after running on within-line regression errors for 100 times, is shown below. 
-![Fig 6. adapted_warp on within-line regression error](https://github.com/isabella-feng/CS421-project1/blob/main/graphs/adatped_warp_comparison.png?raw=true "Fig 6. adapted_warp on within-line regression error")
-My *adapted_warp* algorithm has a mean accuracy of  0.80, whereas *warp* has only 0.76. *adapted_warp* is superior than *warp* because it takes the best of *attach* method when encountering regressions. 
+- Apply your Python2Vec model in other software engineering applications, such as autocomplete and suggesting method names.
+For this extension, I wrote a function called "what_is_this_code" to summarize the content of a string of texts in one word. I achieve it by taking the mean of the vector of all words and find the most similar word.
+![Fig 3. Extension - Example 1](https://github.com/isabella-feng/CS421-project2/blob/main/extension_pics/pic1.png?raw=true "Fig 3. Extension - Example 1")
+<p style="text-align: center;">*Fig 3. Extension - Example 1*</p>
+In the above example, with the line of code that imports the matplotlib.pylot package, it successfully finds out "matplotpin" as the mostly likely keyword.<br>
+![Fig 4. Extension - Example 2](https://github.com/isabella-feng/CS421-project2/blob/main/extension_pics/pic2.png?raw=true "Fig 4. Extension - Example 2")
+<p style="text-align: center;">*Fig 4. Extension - Example 2*</p>
+In the above example, with the line of code that imports multiple packages, it successfully finds out "import" as the mostly likely keyword.
 
 ### Reference
-The code for 10 algorithms is acquired from J# on W. Carr's GitHub https://github.com/jwcarr/drift.
+I refer to Gensim Word2Vec documentation https://radimrehurek.com/gensim/models/word2vec.html for methods. 
 
 
 
