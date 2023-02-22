@@ -5,18 +5,18 @@
 *GitHub Repository: https://github.com/isabella-feng/CS421-project2*
 
 ### Abstract
-In this project, I applied the Gensim Word2Vec model to source code of multiple python libraries to create Python2Vec, which is a machine learning structure that generate word embeddings based on Python code.
+In this project, I applied the Gensim Word2Vec model to the source code of multiple python libraries to create Python2Vec, which is a machine-learning structure that generates word embeddings based on Python code.
 
 ### Results
-First off all, I downloaded a few Python repositories in an automated way using Python. Then, I crawled through the repositories looking for Python files, and aggregated the Python files found into a single text file. After counting the number of lines and words and tokenized to words, I put the training set to the Gensim Word2Vec model. 
+First of all, I downloaded a few Python repositories in an automated way using Python. Then, I crawled through the repositories looking for Python files, and aggregated the Python files found into a single text file. After counting the number of lines and words and tokenizing to words, I put the training set to the Gensim Word2Vec model. 
 
-Exploring the model, I discover that the Python2Vec model can accurately detect and perdict similar syntax. For example, it is able to find the closest words to "if" as elif, when, while, whether, etc. It also can find the closest words to terms, for example, it finds closest words for "numpy" as py, api, scipy, etc. To an extent it understands similar meanings of words pretty well, for example, it finds similar words to "number" as amount, part, ratio, presence, combination, total, numbers, etc.
+Exploring the model, I discover that the Python2Vec model can accurately detect and predict similar syntax. For example, it can find the closest words to "if" as elif, when, while, whether, etc. It also can find the closest words to terms, for example, it finds the closest words for "numpy" as py, api, scipy, etc. To an extent it understands similar meanings of words pretty well, for example, it finds similar words to "number" as amount, part, ratio, presence, combination, total, numbers, etc.
 
-It can also find similarity between words. For example, "numpy" and "math" are loosely similar with a similarity of 0.21401104. "true" and "false" are both booleans and are usually used in similar settings, so they have high similarity. "big_endian" and "define" are competely unrelated so they have very low similarity.
+It can also find similarities between words. For example, "numpy" and "math" are loosely similar with a similarity of 0.21401104. "true" and "false" are both booleans and are usually used in similar settings, so they have high similarity. "big_endian" and "define" are completely unrelated so they have a very low similarity.
 
-It can also find the words that doesn't match in a group of words. For example, among the words 'if', 'for', 'while' and 'string', 'string' is the only one that's not a syntax word. Python2Vec can successfully detect that. In another example, among the words 'string', 'integer', 'boolean', 'define', 'define' is the only one that's not a data type. Python2Vec can successfully detect that as well.
+It can also find the word that doesn't match in a group of words. For example, among the words 'if', 'for', 'while', and 'string', 'string' is the only one that's not a syntax word. Python2Vec can successfully detect that. In another example, among the words 'string', 'integer', 'boolean', 'define', 'define' is the only one that's not a data type. Python2Vec can successfully detect that as well.
 
-In analysis of the similarity between identifiers, we're able to have interesting discoveries. For one, the pair with highest similarity is 'ValueError' and 'TypeError', as both of them are errors and usually appear in similar settings. For another, common variable names, such as 'x' and 'y', also have high similarities, as they're usually just names and can be interchangeable. 
+In the analysis of the similarity between identifiers, we're able to have interesting discoveries. For one, the pair with the highest similarity is 'ValueError' and 'TypeError', as both of them are errors and usually appear in similar settings. For another, common variable names, such as 'x' and 'y', also have high similarities, as they're usually just names and can be interchangeable. 
 
 On the other hand, it seems like variable names that carry certain meanings are unlikely to have similarity as others, such as 'plt' & 'obj', 'res' & 'fig' have very low similarity with negative values.
 
@@ -30,17 +30,18 @@ Furthermore, I enhanced the way to flag identifiers as similar/dissimilar. I cat
 
 
 ### Discussions
-The analysis of similarity of the identifiers could provide us with some insights on how codes are made. For example, homogeneous variable names that don't carry certain meanings could be quite similar, which might decrease the readability of the codes, and may create confusion and increase the possibility of having bugs. In the opposite, variable names that carry certain meanings are unlikely to have similarity with others. This reminds us that when we name our functions and variables, it is the best to use less homogeneous names (such as 'x' or 'y'), and embed the meaning/intensino in the name instead. 
+The analysis of the similarity of the identifiers could provide us with some insights into how codes are made. For example, homogeneous variable names that don't carry certain meanings could be quite similar, which might decrease the readability of the codes, and may create confusion and increase the possibility of having bugs. On the opposite, variable names that carry certain meanings are unlikely to have similarities with others. This reminds us that when we name our functions and variables, it is best to use less homogeneous names (such as 'x' or 'y'), and embed the meaning/intention in the name instead. 
 
 ### Extensions
 - Apply your Python2Vec model in other software engineering applications, such as autocomplete and suggesting method names.
-For this extension, I wrote a function called "what_is_this_code" to summarize the content of a string of texts in one word. I achieve it by taking the mean of the vector of all words and find the most similar word.
+For this extension, I wrote a function called "what_is_this_code" to summarize the content of a string of texts in one word. I achieve it by taking the mean of the vector of all words and finding the most similar word.
 ![Fig 3. Extension - Example 1](https://github.com/isabella-feng/CS421-project2/blob/main/extension_pics/pic1.png?raw=true "Fig 3. Extension - Example 1")
 <p style="text-align: center;">*Fig 3. Extension - Example 1*</p>
-In the above example, with the line of code that imports the matplotlib.pylot package, it successfully finds out "matplotpin" as the mostly likely keyword.<br>
+In the above example, with the line of code that imports the matplotlib.pylot package, it successfully finds out "matplotpin" as the most likely keyword.<br>
+
 ![Fig 4. Extension - Example 2](https://github.com/isabella-feng/CS421-project2/blob/main/extension_pics/pic2.png?raw=true "Fig 4. Extension - Example 2")
 <p style="text-align: center;">*Fig 4. Extension - Example 2*</p>
-In the above example, with the line of code that imports multiple packages, it successfully finds out "import" as the mostly likely keyword.
+In the above example, with the line of code that imports multiple packages, it successfully finds out "import" as the most likely keyword.
 
 ### Reference
 I refer to Gensim Word2Vec documentation https://radimrehurek.com/gensim/models/word2vec.html for methods. 
